@@ -1,18 +1,46 @@
 
-<ul>
-
+<ul class="habitacion-principal">
+  <li>HABITACIÓN PRINCIPAL</li>
   <li>
-    PUERTA HABITACIÓN<br>
+    PUERTA<br>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_DOOR, Command.ON)"><i class="pi pi-caret-up"> </i>SUBIR</button>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_DOOR, Command.OFF)"><i class="pi pi-caret-down"> </i>BAJAR</button>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_DOOR, Command.STOP)" > <i class="pi pi-stop"> </i>STOP</button>
   </li>
-  <br><br>
   <li>
-    VENTANA HABITACIÓN<br>
+    VENTANA<br>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_WINDOW, Command.ON)"><i class="pi pi-caret-up"> </i>SUBIR</button>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_WINDOW, Command.OFF)"><i class="pi pi-caret-down"> </i>BAJAR</button>
     <button (click)="onClickCommandButton(Devices.MAIN_ROOM_WINDOW, Command.STOP)" > <i class="pi pi-stop"> </i>STOP</button>
+  </li>
+
+</ul>
+<br><br>
+
+<ul class="salon-cocinal">
+  <li>SALON/COCINA</li>
+  <li>
+    PUERTA<br>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_DOOR, Command.ON)"><i class="pi pi-caret-up"> </i>SUBIR</button>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_DOOR, Command.OFF)"><i class="pi pi-caret-down"> </i>BAJAR</button>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_DOOR, Command.STOP)" > <i class="pi pi-stop"> </i>STOP</button>
+  </li>
+  <li>
+    VENTANA<br>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_WINDOW, Command.ON)"><i class="pi pi-caret-up"> </i>SUBIR</button>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_WINDOW, Command.OFF)"><i class="pi pi-caret-down"> </i>BAJAR</button>
+    <button (click)="onClickCommandButton(Devices.KITCHEN_WINDOW, Command.STOP)" > <i class="pi pi-stop"> </i>STOP</button>
+  </li>
+
+</ul>
+<br><br>
+<ul class="habitacion-linda">
+  <li>HABITACIÓN LINDA</li>
+  <li>
+    VENTANA<br>
+    <button (click)="onClickCommandButton(Devices.SMALL_ROOM, Command.ON)"><i class="pi pi-caret-up"> </i>SUBIR</button>
+    <button (click)="onClickCommandButton(Devices.SMALL_ROOM, Command.OFF)"><i class="pi pi-caret-down"> </i>BAJAR</button>
+    <button (click)="onClickCommandButton(Devices.SMALL_ROOM, Command.STOP)" > <i class="pi pi-stop"> </i>STOP</button>
   </li>
 
 </ul>

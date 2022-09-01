@@ -1,3 +1,6 @@
 docker build -t dockerhub_name/image_name:tag dockerfile_location
 #Example
 docker build -t bharathirajatut/angular-app:latest .
+
+
+docker run -d -p 80:80 bharathirajatut/angular-app:latest

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { AppService } from './app.service';
 import { Command, Devices } from './enums';
+import { VoiceRecognitionService } from './voice.recognition.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +10,21 @@ import { Command, Devices } from './enums';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  // private subscription: Subscription
+  private source = interval(1000);
 
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService, public voiceRecognitionService: VoiceRecognitionService) {
+/*     this.subscription = this.source.subscribe((val) => {
+      console.log(this.voiceRecognitionService.tempWords);
+      console.log(this.voiceRecognitionService.wordConcat);
+      console.log(this.voiceRecognitionService.lastTranscript);
+    }); */
+  }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+    // throw new Error('Method not implemented.');
+    this.voiceRecognitionService.init();
 
   }
 
@@ -39,5 +51,45 @@ export class AppComponent implements OnInit{
     return Devices;
 
   }
+
+  public activeVoice(event: MouseEvent): void {
+    if (this.voiceRecognitionService.isStoppedSpeechRecog) {
+      this.voiceRecognitionService.stop();
+    } else {
+      this.voiceRecognitionService.start();
+    }
+
+
+  }
+
+  public cancelVoice(event: MouseEvent): void {
+    this.voiceRecognitionService.stop();
+  }
+
+
+
+  
+
+
+
+/* const levenshteinDistance = (s, t) => {
+  if (!s.length) return t.length;
+  if (!t.length) return s.length;
+  const arr = [];
+  for (let i = 0; i <= t.length; i++) {
+    arr[i] = [i];
+    for (let j = 1; j <= s.length; j++) {
+      arr[i][j] =
+        i === 0
+          ? j
+          : Math.min(
+              arr[i - 1][j] + 1,
+              arr[i][j - 1] + 1,
+              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
+            );
+    }
+  }
+  return arr[t.length][s.length];
+}; */
 
 }

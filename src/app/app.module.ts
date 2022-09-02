@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, } from '@angular/platform-browser';
+import {AccordionModule} from 'primeng/accordion';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +8,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VoiceRecognitionService } from './voice.recognition.service';
 
 @NgModule({
   declarations: [
@@ -14,8 +17,10 @@ import { AuthInterceptor } from './auth.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    AccordionModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -24,8 +29,8 @@ import { AuthInterceptor } from './auth.interceptor';
     })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    VoiceRecognitionService
   ],
   bootstrap: [AppComponent]
 })

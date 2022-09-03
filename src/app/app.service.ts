@@ -17,6 +17,12 @@ export class AppService {
 
   }
 
+  public executeCommandStr(device: string, command: string): Observable<any> {
+    const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/${device}/command/${command}`;
+    return this.HttpClient.get<any>(url, {});
+
+  }
+
   public commandOn(device: string | 'ZWayVDev_zway_8-0-38'): Observable<any> {
     const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/${device}/command/on`;
     return this.HttpClient.get<any>(url, {});

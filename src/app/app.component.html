@@ -1,5 +1,7 @@
 
-<button style="color: green;" [class]="'pi pi-volume-up speech ' + (voiceRecognitionService.isStoppedSpeechRecog ? 'red' : 'green')" (click)="activeVoice($event)"></button>
+<button *ngIf="voiceRecognitionService.isStoppedSpeechRecog === false"  [class]="'pi pi-volume-up speech green'" (click)="cancelVoice($event)"></button>
+<button *ngIf="voiceRecognitionService.isStoppedSpeechRecog === true" [class]="'pi pi-volume-off speech red'" (click)="activeVoice($event)"></button>
+
 <!-- <button style="color: darkred;" class="pi pi-volume-up speech" (click)="cancelVoice($event)"></button> -->
 
 <p-accordion [multiple]="true">

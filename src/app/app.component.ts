@@ -53,22 +53,16 @@ export class AppComponent implements OnInit{
   }
 
   public activeVoice(event: MouseEvent): void {
-    if (this.voiceRecognitionService.isStoppedSpeechRecog) {
-      this.voiceRecognitionService.stop();
-    } else {
-      this.voiceRecognitionService.start();
-    }
-
-
+    this.voiceRecognitionService.start();
   }
 
-  public cancelVoice(event: MouseEvent): void {
+/*  */  public cancelVoice(event: MouseEvent): void {
     this.voiceRecognitionService.stop();
   }
 
 
 
-  
+
 
 
 

@@ -14,11 +14,6 @@ export class AppComponent implements OnInit{
   private source = interval(1000);
 
   constructor(private appService: AppService, public voiceRecognitionService: VoiceRecognitionService) {
-/*     this.subscription = this.source.subscribe((val) => {
-      console.log(this.voiceRecognitionService.tempWords);
-      console.log(this.voiceRecognitionService.wordConcat);
-      console.log(this.voiceRecognitionService.lastTranscript);
-    }); */
   }
 
   ngOnInit(): void {

@@ -11,9 +11,9 @@ declare var webkitSpeechRecognition: any;
 })
 export class VoiceRecognitionService {
 
-
+  public error = '';
   private LANG: string = 'es-ES';
-  public recognition =  new webkitSpeechRecognition();
+  public recognition = new webkitSpeechRecognition();
   public isStoppedSpeechRecog = true;
   public text = '';
   public tempWords: any;
@@ -32,30 +32,35 @@ export class VoiceRecognitionService {
   }
 
   public init() {
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      // speech recognition API supported
+    } else {
+      // speech recognition API not supported
+
+      //redirect to another page
+      alert('SPEECH NOT SUPORTED');
+
+    }
+
+
+    this.recognition.start();
 
     // auto stop speech
     this.subscription = this.source.subscribe((val) => {
       if (this.isStoppedSpeechRecog === false && (this.lastTranscript.getTime() + 2000) < (new Date().getTime() )) {
-        console.log(this.finalWords);
-        //this.checkCommands(this.finalWords);
         const acction: Acction = this.findMatchedAction(this.finalWords);
-        console.log('RESULTADO FINAL DE LA PETICION');
-        console.log(acction);
-
         this.appService.executeCommandStr((acction.device + "") || "", (acction.command+"") || "").subscribe(
           (response) => {
             console.log(response);
-
+            this.stop();
           },
           error => {
             console.log(error);
-
+            this.error += JSON.stringify(error);
+            console.log(error);
+            this.stop();
           }
         );
-
-        // var test = 'habitacion principal subir puerta';
-        // console.log(this.levenshteinDistance(this.finalWords, test));
-        this.stop();
       }
      });
 

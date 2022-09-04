@@ -34,9 +34,10 @@ export class VoiceRecognitionService {
   public init() {
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       // speech recognition API supported
+      this.recognition = new webkitSpeechRecognition();
     } else {
       // speech recognition API not supported
-
+      this.recognition = new webkitSpeechRecognition();
       //redirect to another page
       alert('SPEECH NOT SUPORTED');
 
@@ -75,6 +76,11 @@ export class VoiceRecognitionService {
       this.tempWords = transcript;
       this.finalWords = transcript.toString();
       this.lastTranscript = new Date();
+    });
+
+    this.recognition.addEventListener('error', (e: any) => {
+      this.error += '\r\n\r\n';
+      this.error += JSON.stringify(e);
     });
   }
 
@@ -250,13 +256,6 @@ export class VoiceRecognitionService {
 
 
     return acction;
-  }
-
-  private findCommand(command: any[]): Command {
-
-
-
-    return Command.OFF;
   }
 
 

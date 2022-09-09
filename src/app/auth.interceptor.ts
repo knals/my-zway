@@ -10,8 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
       const request = req.clone({
             headers: new HttpHeaders({
               'Accept':  'application/json, text/plain, */*',
-              'Cookie': 'ZWAYSession=869d3f0d-1581-a90b-d497-211137f94f28',
-              'ZWAYSession' : '869d3f0d-1581-a90b-d497-211137f94f28'
+              'Cookie': 'ZWAYSession=8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
+              'ZWAYSession' : '8e61551d-fa06-d9d5-0f21-6a2deaac5b8d'
             })
           });
       return next.handle(request);

@@ -11,7 +11,11 @@ export class AuthInterceptor implements HttpInterceptor {
             headers: new HttpHeaders({
               'Accept':  'application/json, text/plain, */*',
               'Cookie': 'ZWAYSession=8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
-              'ZWAYSession' : '8e61551d-fa06-d9d5-0f21-6a2deaac5b8d'
+              'ZWAYSession' : '8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
+              'Feature-Policy': 'camera "none"; geolocation "none"; microphone "self"; usb "none"'
+
+
+              // Feature-Policy: camera 'none'; geolocation 'none'; microphone 'self'; usb 'none';
             })
           });
       return next.handle(request);

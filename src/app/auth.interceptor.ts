@@ -5,7 +5,11 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+  private readonly DUMMY_TOKEN = '22755332-50ae-e6cc-c086-517963b906ba';
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+
 
     let request:HttpRequest<any>;
 
@@ -14,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
         /* 'Cookie': 'ZWAYSession=8e61551d-fa06-d9d5-0f21-6a2deaac5b8d', */
         headers: new HttpHeaders({
           'Accept':  'application/json, text/plain, */*',
-          'ZWAYSession' : '8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
+          'ZWAYSession' : this.DUMMY_TOKEN,
         })
       });
     } else {
@@ -22,8 +26,8 @@ export class AuthInterceptor implements HttpInterceptor {
       request = req.clone({
         headers: new HttpHeaders({
           'Accept':  'application/json, text/plain, */*',
-          'Cookie': 'ZWAYSession=8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
-          'ZWAYSession' : '8e61551d-fa06-d9d5-0f21-6a2deaac5b8d',
+          'Cookie': `ZWAYSession=${this.DUMMY_TOKEN}`,
+          'ZWAYSession' : this.DUMMY_TOKEN,
           'Feature-Policy': 'camera "none"; geolocation "none"; microphone "self"; usb "none"',
           'Access-Control-Allow-Origin' : '*',
           'Access-Control-Allow-Methods' : 'GET,HEAD,OPTIONS,POST,PUT',

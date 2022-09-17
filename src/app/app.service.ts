@@ -30,13 +30,13 @@ export class AppService {
   }
 
   public commandOff(device: string | 'ZWayVDev_zway_8-0-38'): Observable<any> {
-    const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/ZWayVDev_zway_8-0-38/command/off`;
+    const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/${device}/command/off`;
     return this.HttpClient.get<any>(url, {});
 
   }
 
   public commandStop(device: string | 'ZWayVDev_zway_8-0-38'): Observable<any> {
-    const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/ZWayVDev_zway_8-0-38/command/stop`;
+    const url = `http://192.168.1.109:8083/ZAutomation/api/v1/devices/${device}/command/stop`;
     return this.HttpClient.get<any>(url, {});
 
   }

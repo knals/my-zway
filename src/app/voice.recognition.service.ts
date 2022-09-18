@@ -52,28 +52,25 @@ export class VoiceRecognitionService {
         const acction: Acction = this.findMatchedAction(this.finalWords);
 
         console.log(acction);
-        if (acction.device === undefined || acction.command === undefined) {
-          console.log('DEVICE OR COMMAND IS NULL');
+        if (acction === undefined || acction === null || acction.device === undefined || acction.command === undefined
+          || acction.device === null || acction.command === null) {
+          this.stop();
           return;
         }
 
 
-        this.appService.executeCommandStr((acction.device + "") || "", (acction.command+"") || "").subscribe(
+        this.appService.executeCommandStr((acction.device + "") || "", (acction.command + "") || "").subscribe(
           (response) => {
-            console.log('SE EJECUTA EL PRIMERO');
             if (acction.time !== undefined) {
-
-
               setTimeout(
                 () => {
                   this.appService.executeCommandStr((acction.device + "") || "", (Command.STOP+"") || "").subscribe(
                     () => {
                       this.stop();
-                      console.log('SE EJECUTA EL SEGUNDO');
                     }
                   )
 
-                } , (acction.time - .25) * 1000 );
+                }, (acction.time - .15) * 1000 );
 
             } else {
               this.stop();

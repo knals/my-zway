@@ -32,32 +32,58 @@ export class VoiceRecognitionService {
   }
 
   public init() {
-    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+/*     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       // speech recognition API supported
-      this.recognition = new webkitSpeechRecognition();
     } else {
       // speech recognition API not supported
-      this.recognition = new webkitSpeechRecognition();
+
       //redirect to another page
       alert('SPEECH NOT SUPORTED');
 
     }
 
 
-    this.recognition.start();
+    this.recognition.start(); */
+0
 
     // auto stop speech
     this.subscription = this.source.subscribe((val) => {
-      if (this.isStoppedSpeechRecog === false && (this.lastTranscript.getTime() + 2000) < (new Date().getTime() )) {
+      if (this.isStoppedSpeechRecog === false && (this.lastTranscript.getTime() + 500) < (new Date().getTime() )) {
         const acction: Acction = this.findMatchedAction(this.finalWords);
+
+        console.log(acction);
+        if (acction.device === undefined || acction.command === undefined) {
+          console.log('DEVICE OR COMMAND IS NULL');
+          return;
+        }
+
+
         this.appService.executeCommandStr((acction.device + "") || "", (acction.command+"") || "").subscribe(
           (response) => {
-            console.log(response);
-            this.stop();
+            console.log('SE EJECUTA EL PRIMERO');
+            if (acction.time !== undefined) {
+
+
+              setTimeout(
+                () => {
+                  this.appService.executeCommandStr((acction.device + "") || "", (Command.STOP+"") || "").subscribe(
+                    () => {
+                      this.stop();
+                      console.log('SE EJECUTA EL SEGUNDO');
+                    }
+                  )
+
+                } , (acction.time - .25) * 1000 );
+
+            } else {
+              this.stop();
+            }
+
+
           },
           error => {
             console.log(error);
-            this.error += JSON.stringify(error);
+            this.error += JSON.stringify(error).toString();
             console.log(error);
             this.stop();
           }
@@ -76,11 +102,6 @@ export class VoiceRecognitionService {
       this.tempWords = transcript;
       this.finalWords = transcript.toString();
       this.lastTranscript = new Date();
-    });
-
-    this.recognition.addEventListener('error', (e: any) => {
-      this.error += '\r\n\r\n';
-      this.error += JSON.stringify(e);
     });
   }
 
@@ -133,7 +154,7 @@ export class VoiceRecognitionService {
   };
 
   private findMatchedAction(text: string): Acction {
-
+    console.log(text);
     const wordsArr = text.split(' ');
 
     // Command
@@ -251,11 +272,26 @@ export class VoiceRecognitionService {
       );
 
 
+      wordsArr.forEach(word => {
+        if (isNaN(+word) === false) {
+          acction.time = +word;
+        }
+
+      });
 
     });
 
 
     return acction;
+  }
+
+
+
+  private findCommand(command: any[]): Command {
+
+
+
+    return Command.OFF;
   }
 
 

@@ -48,7 +48,7 @@ export class VoiceRecognitionService {
 
     // auto stop speech
     this.subscription = this.source.subscribe((val) => {
-      if (this.isStoppedSpeechRecog === false && (this.lastTranscript.getTime() + 500) < (new Date().getTime() )) {
+      if (this.isStoppedSpeechRecog === false && (this.lastTranscript.getTime() + 1250) < (new Date().getTime() )) {
         const acction: Acction = this.findMatchedAction(this.finalWords);
 
         console.log(acction);
@@ -70,7 +70,7 @@ export class VoiceRecognitionService {
                     }
                   )
 
-                }, (acction.time - .15) * 1000 );
+                }, (acction.time - .35) * 1000 );
 
             } else {
               this.stop();
